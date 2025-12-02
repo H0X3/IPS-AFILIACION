@@ -8,6 +8,22 @@ Este proyecto consulta documentos (cédulas, registro civil y tarjeta de identid
 - Entorno virtual creado en `venv` con `requests` instalado
 - Para exportar Excel: `openpyxl` (opcional; el script principal intentará usarlo)
 
+## Instalación de dependencias
+
+- Con entorno virtual:
+  ```powershell
+  python -m venv venv
+  .\venv\Scripts\Activate.ps1
+  .\venv\Scripts\python.exe -m pip install -r requirements.txt
+  ```
+  Esto instala `requests` y `openpyxl`.
+
+- Sin entorno virtual ⚡:
+  ```powershell
+  python -m pip install -r requirements.txt
+  ```
+  Usa tu Python del sistema.
+
 ## Archivos de entrada
 
 - `Datos_utenticacion.txt`: Debe contener tus credenciales y opcionalmente un token.
@@ -28,6 +44,29 @@ Este proyecto consulta documentos (cédulas, registro civil y tarjeta de identid
   - `cedulas.txt`
   - `registrocivil.txt`
   - `tarjetasid.txt`
+
+### Preparación de archivos de consulta 📝
+
+- En cada archivo coloca una identificación por línea (sin comas ni espacios).
+- Ejemplos:
+  - `cedulas.txt`:
+    ```
+    1044918053
+    1044944981
+    1201279350
+    ```
+  - `registrocivil.txt`:
+    ```
+    1234100738
+    1044940767
+    ```
+  - `tarjetasid.txt`:
+    ```
+    1044917880
+    1142931732
+    ```
+-
+  Asegúrate de que cada archivo corresponda al tipo de documento correcto.
 
 ## Salidas
 
@@ -50,8 +89,17 @@ Este proyecto consulta documentos (cédulas, registro civil y tarjeta de identid
 
 2) Ejecutar consultas
 - En Windows (PowerShell) desde el directorio del proyecto:
+
+  Ejecutar con entorno virtual 🛡️ (recomendado)
   ```powershell
+  .\venv\Scripts\python.exe -m pip install -r requirements.txt
   .\venv\Scripts\python.exe cedulas.py
+  ```
+
+  Ejecutar sin entorno virtual ⚡
+  ```powershell
+  python -m pip install -r requirements.txt
+  python cedulas.py
   ```
 - El script:
   - Obtiene token automáticamente (leyendo del archivo o logueando con `usuario`/`contraseña`).
@@ -59,6 +107,11 @@ Este proyecto consulta documentos (cédulas, registro civil y tarjeta de identid
   - Exporta `cedulas.csv`, `registrocivil.csv`, `tarjetasid.csv`.
   - Si el token vence, lo renueva y reintenta la consulta.
   - Al finalizar, unifica automáticamente y genera `unificado.csv` y `unificado.xlsx`.
+
+▶️ Consejo visual
+- 🛡️ Entorno virtual: más aislado, evita conflictos con otras apps.
+- ⚡ Sin entorno virtual: más rápido, pero puede mezclar dependencias del sistema.
+- 📝 Mantén una identificación por línea en cada archivo `.txt`.
 
 3) Script alternativo de unificación (opcional)
 - Si prefieres ejecutar la unificación por separado, usa:
