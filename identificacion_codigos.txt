@@ -1,0 +1,3 @@
+cedula: 1
+tarjeta identidad: 2
+registro civil: 3
